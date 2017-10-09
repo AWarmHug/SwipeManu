@@ -33,6 +33,8 @@ import android.widget.Scroller;
  * <p>
  * 三、
  * 处理RecycleView滑动冲突 {@link #requestDisallowInterceptTouchEvent(boolean)}
+ * 四、
+ * 在RecycleView.Adapter中因为点击事件已经被拦截所以需要以子控件为Item。
  */
 
 public class SideslipLayout extends ViewGroup {
@@ -40,7 +42,7 @@ public class SideslipLayout extends ViewGroup {
 
     private static SideslipLayout menu;
 
-    private static final String TAG = "SlideMenu1111";
+    private static final String TAG = "SideslipLayout";
 
 
     private int menuLength;
@@ -275,24 +277,6 @@ public class SideslipLayout extends ViewGroup {
 
                 break;
         }
-        switch (ev.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                Log.d(TAG, "onInterceptTouchEvent: ACTION_DOWN" + ",," + super.onInterceptTouchEvent(ev));
-
-                break;
-            case MotionEvent.ACTION_MOVE:
-                Log.d(TAG, "onInterceptTouchEvent: ACTION_MOVE" + ",," + super.onInterceptTouchEvent(ev));
-
-                break;
-            case MotionEvent.ACTION_UP:
-                Log.d(TAG, "onInterceptTouchEvent: ACTION_UP" + ",," + super.onInterceptTouchEvent(ev));
-
-                break;
-            case MotionEvent.ACTION_CANCEL:
-                Log.d(TAG, "onInterceptTouchEvent: ACTION_CANCEL" + ",," + super.onInterceptTouchEvent(ev));
-
-                break;
-        }
 
         return super.onInterceptTouchEvent(ev);
     }
@@ -355,24 +339,7 @@ public class SideslipLayout extends ViewGroup {
                 break;
         }
 
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                Log.d(TAG, "onTouchEvent: ACTION_DOWN" + ",," + super.onInterceptTouchEvent(event));
 
-                break;
-            case MotionEvent.ACTION_MOVE:
-                Log.d(TAG, "onTouchEvent: ACTION_MOVE" + ",," + super.onInterceptTouchEvent(event));
-
-                break;
-            case MotionEvent.ACTION_UP:
-                Log.d(TAG, "onTouchEvent: ACTION_UP" + ",," + super.onInterceptTouchEvent(event));
-
-                break;
-            case MotionEvent.ACTION_CANCEL:
-                Log.d(TAG, "onTouchEvent: ACTION_CANCEL" + ",," + super.onInterceptTouchEvent(event));
-
-                break;
-        }
 
 
         return super.onTouchEvent(event);
