@@ -42,3 +42,7 @@ captures/
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
+libs/
+src/main/res/drawable/
+app/src/main/res/drawable/
+sidesliplayout/src/main/res/drawable/
