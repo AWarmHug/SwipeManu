@@ -1,1 +1,1 @@
-include ':app', ':sidesliplayout'
+include ':app', ':library'
