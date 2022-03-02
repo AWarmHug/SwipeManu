@@ -1,6 +1,7 @@
 package com.warm.swipemenu;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Scroller;
 
 /**
@@ -139,7 +141,7 @@ public class SwipeMenu extends ViewGroup {
         setClickable(true);
         int measureWidth = doMeasureWidth(widthMeasureSpec);
         int measureHeight = doMeasureHeight(heightMeasureSpec);
-        setMeasuredDimension(measureWidth, measureHeight);
+        setMeasuredDimension(measureWidth + getPaddingLeft() + getPaddingRight(), measureHeight + getPaddingTop() + getPaddingBottom());
         measureChildren(widthMeasureSpec, heightMeasureSpec);
     }
 
@@ -205,11 +207,14 @@ public class SwipeMenu extends ViewGroup {
                 child.layout(left, top, left + child.getMeasuredWidth(), top + child.getMeasuredHeight());
                 left += child.getMeasuredWidth();
 
-                if (i != 0) {
-                    menuLength += child.getMeasuredWidth();
-
+                if (child.getLayoutParams() instanceof LayoutParams) {
+                    LayoutParams params = (LayoutParams) child.getLayoutParams();
+                    if (params.isMenu) {
+                        menuLength += child.getMeasuredWidth();
+                    }
                 }
             }
+            menuLength += getPaddingRight();
 
 
         }
@@ -411,7 +416,46 @@ public class SwipeMenu extends ViewGroup {
     protected void onDetachedFromWindow() {
         if (menu == this) {
             menu.setState(CLOSE);
+            menu = null;
         }
         super.onDetachedFromWindow();
     }
+
+    @Override
+    protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
+        return p instanceof LayoutParams;
+    }
+
+    @Override
+    protected LayoutParams generateDefaultLayoutParams() {
+        return new LayoutParams(super.generateDefaultLayoutParams());
+    }
+
+    @Override
+    protected LayoutParams generateLayoutParams(ViewGroup.LayoutParams lp) {
+        return new LayoutParams(super.generateLayoutParams(lp));
+    }
+
+    @Override
+    public ViewGroup.LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new LayoutParams(getContext(), attrs);
+    }
+
+    static class LayoutParams extends ViewGroup.LayoutParams {
+        boolean isMenu;
+
+        public LayoutParams(ViewGroup.LayoutParams p) {
+            super(p);
+        }
+
+
+        public LayoutParams(Context context, AttributeSet attrs) {
+            super(context, attrs);
+            TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.SwipeMenu_Layout);
+            this.isMenu = array.getBoolean(R.styleable.SwipeMenu_Layout_menu, false);
+            array.recycle();
+
+        }
+    }
+
 }

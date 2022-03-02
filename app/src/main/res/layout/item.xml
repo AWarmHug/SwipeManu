@@ -1,32 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.warm.swipemenu.SwipeMenu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="120dp">
 
     <LinearLayout
         android:id="@+id/tv_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="我是真的Item"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="我是真的Item" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_top"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="置顶"
+        android:textColor="#fff"
+        app:menu="true" />
 
     <TextView
         android:id="@+id/tv_add"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="添加"
         android:background="@color/colorPrimary"
         android:gravity="center"
+        android:text="添加"
         android:textColor="#fff"
-        />
+        app:menu="true" />
 
     <TextView
         android:id="@+id/tv_delete"
@@ -34,8 +45,9 @@
         android:layout_height="match_parent"
         android:background="@color/colorAccent"
         android:gravity="center"
+        android:text="删除"
         android:textColor="#fff"
-        android:text="删除" />
+        app:menu="true" />
 
 
 </com.warm.swipemenu.SwipeMenu>

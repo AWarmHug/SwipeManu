@@ -23,20 +23,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mRecy = (RecyclerView) findViewById(R.id.recy);
-        mAdapter=new Adapter();
+        mAdapter = new Adapter();
         mAdapter.setOnItemClickListener(new Adapter.OnItemClickListener() {
             @Override
             public void onClick(int position, int type) {
 
-                switch (type){
+                switch (type) {
                     case Adapter.CLICK:
-                        Toast.makeText(MainActivity.this, "点击了Item，位置："+position, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "点击了Item，位置：" + position, Toast.LENGTH_SHORT).show();
                         break;
                     case Adapter.ADD:
-                        Toast.makeText(MainActivity.this, "点击了Add，位置："+position, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "点击了Add，位置：" + position, Toast.LENGTH_SHORT).show();
                         break;
                     case Adapter.DELETE:
-                        Toast.makeText(MainActivity.this, "点击了Delete，位置："+position, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "点击了Delete，位置：" + position, Toast.LENGTH_SHORT).show();
 
                         break;
                 }
@@ -63,24 +63,24 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, final int position) {
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
             if (onItemClickListener != null) {
                 holder.item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onItemClickListener.onClick(position, CLICK);
+                        onItemClickListener.onClick(holder.getAdapterPosition(), CLICK);
                     }
                 });
                 holder.add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onItemClickListener.onClick(position, ADD);
+                        onItemClickListener.onClick(holder.getAdapterPosition(), ADD);
                     }
                 });
                 holder.delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onItemClickListener.onClick(position, DELETE);
+                        onItemClickListener.onClick(holder.getAdapterPosition(), DELETE);
                     }
                 });
             }
@@ -95,12 +95,14 @@ public class MainActivity extends AppCompatActivity {
         class ViewHolder extends RecyclerView.ViewHolder {
 
             private LinearLayout item;
+            private TextView top;
             private TextView add;
             private TextView delete;
 
             public ViewHolder(View itemView) {
                 super(itemView);
                 item = itemView.findViewById(R.id.tv_item);
+                top = itemView.findViewById(R.id.tv_top);
                 add = itemView.findViewById(R.id.tv_add);
                 delete = itemView.findViewById(R.id.tv_delete);
 
